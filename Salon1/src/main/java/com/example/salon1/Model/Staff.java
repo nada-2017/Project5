@@ -51,7 +51,7 @@ public class Staff {
     private String status;
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staffSet")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "staffSet")
     private Set<Appointment> appointmentSet;
 
 
