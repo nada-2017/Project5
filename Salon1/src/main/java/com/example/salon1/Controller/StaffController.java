@@ -33,15 +33,4 @@ public class StaffController {
         staffService.deleteStaff(id);
         return ResponseEntity.status(200).body("staff deleted");
     }
-    
-        @GetMapping("/get-salary/{name}")
-    public ResponseEntity getSalary(@PathVariable String name){
-        return ResponseEntity.status(200).body(staffService.getSalaryStaff(name));
-    }
-        @GetMapping("get-appointment/{staff_id}")
-    public ResponseEntity getAppointment(@PathVariable Integer staff_id){
-        return ResponseEntity.status(200).body(staffService.getAppointment(staff_id));
-    }
-    
-    
 }

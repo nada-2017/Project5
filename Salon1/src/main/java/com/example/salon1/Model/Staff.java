@@ -1,10 +1,8 @@
 package com.example.salon1.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,30 +26,25 @@ public class Staff {
     @NotNull(message = "age can't be empty")
     private Integer age;
 
-    @NotEmpty(message = "gender can't be empty")
-    @Pattern(regexp = "\\b(?:Female|Male)\\b",message = "Gender Not Valid")
-    @Column(columnDefinition = "varchar(10) not null check(gender='Female' or gender='Male')")
-    private String gender;
+    @NotNull(message = "rating is required")
+    @Positive
+    @Min(value = 1)
+    @Max(value = 5)
+    private Double rating;
 
     @NotEmpty(message = "role can't be empty")
     @Column(columnDefinition = "varchar(20) not null check(role ='supervisor' or role='user')")
     private String role;
 
     @NotEmpty(message = "email can't be empty")
-    @Email(message = "Invalid Email",regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
-    @Column(columnDefinition = "varchar(40) unique")
+    @Email
     private String email;
 
     @NotNull(message = "salary can't be empty")
     private double salary;
 
-    @NotEmpty(message = "status can't be empty")
-    @Pattern(regexp = "\\b(?:available|busy)\\b",message = "status Not Valid")
-    @Column(columnDefinition = "varchar(10) not null check(status='available' or status='busy')")
-    private String status;
 
-
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "staffSet")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "staff")
     private Set<Appointment> appointmentSet;
 
 

@@ -1,6 +1,5 @@
 package com.example.salon1.Controller;
 
-
 import com.example.salon1.Model.Customer;
 import com.example.salon1.Service.CustomerService;
 import jakarta.validation.Valid;
@@ -9,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/customer")
+@RequiredArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -37,9 +36,10 @@ public class CustomerController {
         customerService.deleteCustomer(id);
         return ResponseEntity.status(200).body("Customer deleted");
     }
-    
+
     @GetMapping("/get-appointment/{id}")
     public ResponseEntity getAppointmentOfCustomer(@PathVariable Integer id){
         return ResponseEntity.status(200).body(customerService.getAppointmentOfCustomer(id));
     }
+
 }

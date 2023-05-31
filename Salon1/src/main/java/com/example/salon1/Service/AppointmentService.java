@@ -5,21 +5,26 @@ import com.example.salon1.DTO.DTO;
 import com.example.salon1.Model.Appointment;
 import com.example.salon1.Model.Customer;
 import com.example.salon1.Model.Serv;
+import com.example.salon1.Model.Staff;
 import com.example.salon1.Repository.AppointmentRepository;
 import com.example.salon1.Repository.CustomerRepository;
 import com.example.salon1.Repository.ServRepository;
+import com.example.salon1.Repository.StaffRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class AppointmentService {
-
     private final AppointmentRepository appointmentRepository;
     private final CustomerRepository customerRepository;
     private final ServRepository servRepository;
+    private final StaffRepository staffRepository;
 
     public List<Appointment> getAll(){
         return appointmentRepository.findAll();
@@ -27,12 +32,15 @@ public class AppointmentService {
 
     public void addAppointment(DTO dto){
         Customer customer = customerRepository.getCustomerById(dto.getCustomer_id());
+        appointmentRepository.delete(customer.getAppointment());
+        customer.setAppointment(null);
         Serv serv = servRepository.findServById(dto.getServ_id());
-        Set<Serv> servSet = new HashSet<>();
-        servSet.add(serv);
+        Staff staff  = staffRepository.findStaffById(dto.getStaff_id());
+//        List<Serv> servSet = new LinkedList<>();
+//        servSet.add(serv);
         if (customer == null)
             throw new ApiException("Customer not found");
-        Appointment appointment = new Appointment(null, dto.getDay(), dto.getMonth(),dto.getYear(),dto.getHour(),customer,serv.getStaffSet(),servSet);
+        Appointment appointment = new Appointment(null, dto.getDay(), dto.getMonth(),dto.getYear(),dto.getHour(),customer,staff,serv);
         appointmentRepository.save(appointment);
     }
 
@@ -53,8 +61,27 @@ public class AppointmentService {
             throw new ApiException("Not found");
         appointmentRepository.delete(a);
     }
-    
+
     public List<Appointment> getAppointmentByDay(Integer day){
         return appointmentRepository.getAppointmentsByDay(day);
     }
+
+//    public void assignAppointmentToService(Integer appointment_id ,Integer serv_id ){
+//        Appointment appointment=appointmentRepository.findAppointmentById(appointment_id);
+//        Serv serv=servRepository.findServById(serv_id);
+//
+//
+//        if(serv==null || appointment==null){
+//            throw new ApiException("Data Wrong");
+//        }
+////        appointment.getServ().add(serv);
+//        appointment.setServ(serv);
+//        serv.getAppointments().add(appointment);
+//
+//        appointmentRepository.save(appointment);
+//        servRepository.save(serv);
+//
+//
+//    }
+
 }

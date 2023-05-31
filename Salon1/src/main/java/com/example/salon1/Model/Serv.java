@@ -2,7 +2,7 @@ package com.example.salon1.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,19 +23,18 @@ public class Serv {
     @Column(columnDefinition = "varchar(20) not null")
     private String name;
 
-    @Pattern(regexp = "\\b(?:makeup|hair style|body care|spa)\\b",message = "Category Not Valid")
-    @Column(columnDefinition = "varchar(20) not null check (category='makeup' or category='hair style' or category='body care' or category='spa')")
+    @Column(columnDefinition = "varchar(20) not null check (category='makeup' or category='hairStyle' or category='bodyCare' or category='spa')")
     private String category;
-    
+
     @Column(columnDefinition = "int not null")
     private Integer price;
 
 
-    @ManyToMany(mappedBy = "servSet")
-    private Set<Staff> staffSet; // ghadeer with staff
 
-    @ManyToMany
-    @JsonIgnore    
+    @ManyToMany(mappedBy = "servSet",cascade = CascadeType.REMOVE)
+    private Set<Staff> staff; // ghadeer with staff
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "serv")
     private Set<Appointment> appointments; // Amwaj with opp
 
 

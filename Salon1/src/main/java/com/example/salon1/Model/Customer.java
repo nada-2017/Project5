@@ -17,7 +17,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message = "Name is required")
+    @NotNull(message = "Name is required")
     @Size(min = 2)
     @Column(columnDefinition = "varchar(20)")
     private String name;
@@ -45,7 +45,7 @@ public class Customer {
     @Column(columnDefinition = "varchar(40) unique")
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
+    @OneToOne(cascade = CascadeType.REMOVE,mappedBy = "customer")
     @PrimaryKeyJoinColumn
     private Appointment appointment;
 }

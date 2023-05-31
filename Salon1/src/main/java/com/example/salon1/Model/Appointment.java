@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,6 @@ import java.util.Set;
 public class Appointment {
     @Id
     private Integer id;
-
 
     private Integer day;
 
@@ -33,12 +33,15 @@ public class Appointment {
     private Customer customer;
 
 
-    @ManyToMany
-    @JsonIgnore
-    private Set<Staff> staffSet;
 
-    @ManyToMany
+    @ManyToOne
+    @JoinColumn(name = "staff_id",referencedColumnName = "id")
     @JsonIgnore
-    private Set<Serv> servs;
+    private Staff staff;
+
+    @ManyToOne
+    @JoinColumn(name = "serv_id",referencedColumnName = "id")
+    @JsonIgnore
+    private Serv serv;
 
 }

@@ -1,6 +1,7 @@
 package com.example.salon1.Service;
 
 import com.example.salon1.ApiException.ApiException;
+import com.example.salon1.Model.Appointment;
 import com.example.salon1.Model.Customer;
 import com.example.salon1.Repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
-
     private final CustomerRepository customerRepository;
 
     public List<Customer> getAll(){
@@ -40,7 +40,7 @@ public class CustomerService {
             throw new ApiException("Not found");
         customerRepository.save(c);
     }
-    
+
     public Appointment getAppointmentOfCustomer(Integer id){
         Customer customer = customerRepository.getCustomerById(id);
         if (customer == null)

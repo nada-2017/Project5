@@ -44,8 +44,18 @@ public class ServController {
 
     @GetMapping("/get-category/{category}")
     public ResponseEntity getServByCategory(@PathVariable String category){
-        servService.getServByCategory(category);
-        return ResponseEntity.status(200).body("get by category");
+        return ResponseEntity.status(200).body(servService.getServByCategory(category));
+    }
+
+    @GetMapping("/get-price/{serv_id}")
+    public ResponseEntity getPriceByServ(@PathVariable Integer serv_id){
+        return ResponseEntity.status(200).body("The price is = "+servService.getPriceByServ(serv_id));
+    }
+
+    @PutMapping("/discount/{amount}")
+    public ResponseEntity discount(@PathVariable  Integer amount){
+        servService.discount(amount);
+        return ResponseEntity.status(200).body("discount successful");
     }
 
 
@@ -55,11 +65,7 @@ public class ServController {
         return ResponseEntity.status(200).body("Assign Done");
     }
 
-    @PutMapping("/{appointment_id}/assign/{serv_id}")
-    public ResponseEntity  assignAppointmentToService(@PathVariable Integer appointment_id,@PathVariable Integer serv_id ) {
-        servService.assignAppointmentToService(appointment_id,serv_id);
-        return ResponseEntity.status(200).body("Assign Done");
-    }
+
 
 
 }

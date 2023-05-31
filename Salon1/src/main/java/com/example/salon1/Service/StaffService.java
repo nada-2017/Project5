@@ -15,6 +15,7 @@ public class StaffService {
 
 
     public List<Staff> getAllStaffs(){
+
         return staffRepository.findAll();
     }
 
@@ -43,41 +44,4 @@ public class StaffService {
 
         staffRepository.delete(staff);
     }
-    
-        public Double getSalaryStaff(String name){
-        Staff staff = staffRepository.findStaffByName(name);
-        if (staff==null){
-            throw new ApiException("wrong data");
-        }
-        return staff.getSalary();
-    }
-        public void assignStaffToAppointment(Integer staff_id, Integer appointment_id){
-        Staff staff = staffRepository.findStaffById(staff_id);
-        Appointment appointment = appointmentRepository.findAppointmentById(appointment_id);
-        if (staff==null || appointment==null){
-            throw new ApiException("id worng , can't assigned");
-        }
-        staff.getAppointmentSet().add(appointment);
-        appointment.getStaffSet().add(staff);
-        staffRepository.save(staff);
-        appointmentRepository.save(appointment);
-
-    }
-    
-    
-        public Set<Appointment> getAppointment(Integer id){
-        Staff staff =staffRepository.findStaffById(id);
-        if (staff==null){
-            throw new ApiException("wrong id");
-        }
-        return staff.getAppointmentSet();
-    }
-    
-    
-    
-    
-    
-    
-    
-    
 }

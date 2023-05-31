@@ -6,10 +6,11 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class DTO {
-
     private Integer customer_id;
 
     private Integer serv_id;
+
+    private Integer staff_id;
 
     private Integer day;
 

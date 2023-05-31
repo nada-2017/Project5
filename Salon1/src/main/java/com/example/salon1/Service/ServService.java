@@ -55,13 +55,31 @@ public class ServService {
     public List<Serv> getServByCategory(String category){
         List<Serv> servList=servRepository.findServByCategory(category);
 
-        if(servList==null){
+        if(servList. size() == 0){
 
             throw new ArithmeticException("category not found");
         }
         return servList;
 
     }
+
+    public Integer getPriceByServ(Integer serv_id){
+        Serv serv=servRepository.findServById(serv_id);
+        if(serv==null){
+            throw new ArithmeticException("id wrong,Service Not found");
+        }
+        return serv.getPrice();
+    }
+
+    public void discount(Integer amount){
+        List<Serv> servs=servRepository.findAll();
+        for ( Serv s :servs){
+            s.setPrice(s.getPrice()-(s.getPrice()*amount/100));
+            servRepository.save(s);
+        }
+    }
+
+
 
     public void assignServiceToStaff(Integer serv_id ,Integer staff_id){
         Serv serv=servRepository.findServById(serv_id);
@@ -71,7 +89,7 @@ public class ServService {
             throw new ApiException("Data Wrong");
         }
 
-        serv.getStaffSet().add(staff);
+        serv.getStaff().add(staff);
         staff.getServSet().add(serv);
 
         servRepository.save(serv);
@@ -80,21 +98,5 @@ public class ServService {
     }
 
 
-    public void assignAppointmentToService(Integer appointment_id ,Integer serv_id ){
-        Appointment appointment=appointmentRepository.findAppointmentById(appointment_id);
-        Serv serv=servRepository.findServById(serv_id);
-
-
-        if(serv==null || appointment==null){
-            throw new ApiException("Data Wrong");
-        }
-        appointment.getServs().add(serv);
-        serv.getAppointments().add(appointment);
-
-        appointmentRepository.save(appointment);
-        servRepository.save(serv);
-
-
-    }
 
 }
