@@ -44,4 +44,41 @@ public class StaffService {
 
         staffRepository.delete(staff);
     }
+    
+        public void assignStaffToAppointment(Integer staff_id, Integer appointment_id){
+        Staff staff = staffRepository.findStaffById(staff_id);
+        Appointment appointment = appointmentRepository.findAppointmentById(appointment_id);
+        if (staff==null || appointment==null){
+            throw new ApiException("id worng , can't assigned");
+        }
+        staff.getAppointmentSet().add(appointment);
+        appointment.setStaff(staff);
+        staffRepository.save(staff);
+        appointmentRepository.save(appointment);
+
+    }
+    
+     public Set<Appointment> getAppointment(Integer id){
+        Staff staff =staffRepository.findStaffById(id);
+        if (staff==null){
+            throw new ApiException("wrong id");
+        }
+        return staff.getAppointmentSet();
+    }
+    public void getStaffByRating(Integer customer_id,Integer staff_id ,Double rating ){
+
+        Customer customer = customerRepository.getCustomerById(customer_id);
+        Staff s = staffRepository.findStaffById(staff_id);
+
+        if (s!=customer.getAppointment().getStaff()){
+            throw  new ApiException("staff ");
+        }
+        s.setRating(rating);
+        staffRepository.save(s);
+
+    }
+    
+    
+    
+    
 }
