@@ -40,4 +40,11 @@ public class CustomerService {
             throw new ApiException("Not found");
         customerRepository.save(c);
     }
+    
+    public Appointment getAppointmentOfCustomer(Integer id){
+        Customer customer = customerRepository.getCustomerById(id);
+        if (customer == null)
+            throw new ApiException("Not found");
+        return customer.getAppointment();
+    }
 }
