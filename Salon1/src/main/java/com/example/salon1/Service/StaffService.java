@@ -43,4 +43,20 @@ public class StaffService {
 
         staffRepository.delete(staff);
     }
+    
+        public Double getSalaryStaff(String name){
+        Staff staff = staffRepository.findStaffByName(name);
+        if (staff==null){
+            throw new ApiException("wrong data");
+        }
+        return staff.getSalary();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }
