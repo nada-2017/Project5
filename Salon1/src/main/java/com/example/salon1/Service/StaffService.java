@@ -51,6 +51,18 @@ public class StaffService {
         }
         return staff.getSalary();
     }
+        public void assignStaffToAppointment(Integer staff_id, Integer appointment_id){
+        Staff staff = staffRepository.findStaffById(staff_id);
+        Appointment appointment = appointmentRepository.findAppointmentById(appointment_id);
+        if (staff==null || appointment==null){
+            throw new ApiException("id worng , can't assigned");
+        }
+        staff.getAppointmentSet().add(appointment);
+        appointment.getStaffSet().add(staff);
+        staffRepository.save(staff);
+        appointmentRepository.save(appointment);
+
+    }
     
     
         public Set<Appointment> getAppointment(Integer id){
