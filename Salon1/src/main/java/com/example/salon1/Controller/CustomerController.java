@@ -37,4 +37,9 @@ public class CustomerController {
         customerService.deleteCustomer(id);
         return ResponseEntity.status(200).body("Customer deleted");
     }
+    
+    @GetMapping("/get-appointment/{id}")
+    public ResponseEntity getAppointmentOfCustomer(@PathVariable Integer id){
+        return ResponseEntity.status(200).body(customerService.getAppointmentOfCustomer(id));
+    }
 }
