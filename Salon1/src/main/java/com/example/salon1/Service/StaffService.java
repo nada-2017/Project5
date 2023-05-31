@@ -53,6 +53,15 @@ public class StaffService {
     }
     
     
+        public Set<Appointment> getAppointment(Integer id){
+        Staff staff =staffRepository.findStaffById(id);
+        if (staff==null){
+            throw new ApiException("wrong id");
+        }
+        return staff.getAppointmentSet();
+    }
+    
+    
     
     
     
