@@ -27,14 +27,15 @@ public class Serv {
     @Column(columnDefinition = "varchar(20) not null check (category='makeup' or category='hair style' or category='body care' or category='spa')")
     private String category;
     
+    @Column(columnDefinition = "int not null")
     private Integer price;
 
 
-    @ManyToMany
-    @JsonIgnore
+    @ManyToMany(mappedBy = "servSet")
     private Set<Staff> staffSet; // ghadeer with staff
 
-    @ManyToMany(mappedBy = "servs")
+    @ManyToMany
+    @JsonIgnore    
     private Set<Appointment> appointments; // Amwaj with opp
 
 
