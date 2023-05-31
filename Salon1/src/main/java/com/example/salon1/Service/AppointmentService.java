@@ -53,4 +53,8 @@ public class AppointmentService {
             throw new ApiException("Not found");
         appointmentRepository.delete(a);
     }
+    
+    public List<Appointment> getAppointmentByDay(Integer day){
+        return appointmentRepository.getAppointmentsByDay(day);
+    }
 }
