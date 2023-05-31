@@ -38,7 +38,7 @@ public class CustomerService {
         Customer c = customerRepository.getCustomerById(id);
         if (c == null)
             throw new ApiException("Not found");
-        customerRepository.save(c);
+        customerRepository.delete(c);
     }
 
     public Appointment getAppointmentOfCustomer(Integer id){
