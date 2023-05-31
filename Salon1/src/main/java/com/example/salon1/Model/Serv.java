@@ -26,6 +26,8 @@ public class Serv {
     @Pattern(regexp = "\\b(?:makeup|hair style|body care|spa)\\b",message = "Category Not Valid")
     @Column(columnDefinition = "varchar(20) not null check (category='makeup' or category='hair style' or category='body care' or category='spa')")
     private String category;
+    
+    private Integer price;
 
 
     @ManyToMany
