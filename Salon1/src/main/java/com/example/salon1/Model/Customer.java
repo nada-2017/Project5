@@ -19,12 +19,12 @@ public class Customer {
 
     @NotEmpty(message = "Name is required")
     @Size(min = 2)
-    @Column(columnDefinition = "varchar(20) check ( length(name) > 2 )")
+    @Column(columnDefinition = "varchar(20)")
     private String name;
 
     @NotEmpty(message = "Gender is required")
     @Pattern(regexp = "\\b(?:Female|Male)\\b",message = "Gender Not Valid")
-    @Column(columnDefinition = "varchar(10) not null check(genre='Female' or genre='Male')")
+    @Column(columnDefinition = "varchar(10) not null check(gender='Female' or gender='Male')")
     private String gender;
 
     @NotNull(message = "Age is required")
