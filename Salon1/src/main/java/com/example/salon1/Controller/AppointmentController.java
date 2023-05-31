@@ -42,9 +42,9 @@ public class AppointmentController {
         return ResponseEntity.status(200).body(appointmentService.getAppointmentByDay(day));
     }
 
-//    @PutMapping("/{appointment_id}/appointment/{serv_id}")
-//    public ResponseEntity  assignAppointmentToService(@PathVariable Integer appointment_id,@PathVariable Integer serv_id ) {
-//        appointmentService.assignAppointmentToService(appointment_id,serv_id);
-//        return ResponseEntity.status(200).body("Assign Done");
-//    }
+    @PutMapping("/{appointment_id}/appointment/{serv_id}")
+    public ResponseEntity  assignAppointmentToService(@PathVariable Integer appointment_id,@PathVariable Integer serv_id ) {
+        appointmentService.assignAppointmentToService(appointment_id,serv_id);
+        return ResponseEntity.status(200).body("Assign Done");
+    }
 }
