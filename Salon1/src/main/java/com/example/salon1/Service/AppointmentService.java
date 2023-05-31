@@ -28,9 +28,11 @@ public class AppointmentService {
     public void addAppointment(DTO dto){
         Customer customer = customerRepository.getCustomerById(dto.getCustomer_id());
         Serv serv = servRepository.findServById(dto.getServ_id());
+        Set<Serv> servSet = new HashSet<>();
+        servSet.add(serv);
         if (customer == null)
             throw new ApiException("Customer not found");
-        Appointment appointment = new Appointment(null, dto.getDay(), dto.getMonth(),dto.getYear(),dto.getHour(),customer,null,null);
+        Appointment appointment = new Appointment(null, dto.getDay(), dto.getMonth(),dto.getYear(),dto.getHour(),customer,serv.getStaffSet(),servSet);
         appointmentRepository.save(appointment);
     }
 
