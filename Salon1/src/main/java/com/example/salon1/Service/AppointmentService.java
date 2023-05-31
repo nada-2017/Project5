@@ -32,14 +32,16 @@ public class AppointmentService {
 
     public void addAppointment(DTO dto){
         Customer customer = customerRepository.getCustomerById(dto.getCustomer_id());
-        appointmentRepository.delete(customer.getAppointment());
-        customer.setAppointment(null);
         Serv serv = servRepository.findServById(dto.getServ_id());
         Staff staff  = staffRepository.findStaffById(dto.getStaff_id());
-//        List<Serv> servSet = new LinkedList<>();
-//        servSet.add(serv);
-        if (customer == null)
-            throw new ApiException("Customer not found");
+        if (customer == null || serv == null || staff == null)
+            throw new ApiException("Invalid");
+        Appointment a = customer.getAppointment();
+        if (a != null) {
+            appointmentRepository.delete(customer.getAppointment());
+            customer.setAppointment(null);
+        }
+        customer.setCount(customer.getCount()+1);
         Appointment appointment = new Appointment(null, dto.getDay(), dto.getMonth(),dto.getYear(),dto.getHour(),customer,staff,serv);
         appointmentRepository.save(appointment);
     }
@@ -66,22 +68,18 @@ public class AppointmentService {
         return appointmentRepository.getAppointmentsByDay(day);
     }
 
-//    public void assignAppointmentToService(Integer appointment_id ,Integer serv_id ){
-//        Appointment appointment=appointmentRepository.findAppointmentById(appointment_id);
-//        Serv serv=servRepository.findServById(serv_id);
-//
-//
-//        if(serv==null || appointment==null){
-//            throw new ApiException("Data Wrong");
-//        }
-////        appointment.getServ().add(serv);
-//        appointment.setServ(serv);
-//        serv.getAppointments().add(appointment);
-//
-//        appointmentRepository.save(appointment);
-//        servRepository.save(serv);
-//
-//
-//    }
+    public void assignAppointmentToService(Integer appointment_id ,Integer serv_id ){
+        Appointment appointment=appointmentRepository.findAppointmentById(appointment_id);
+        Serv serv=servRepository.findServById(serv_id);
+        if(serv == null || appointment == null){
+            throw new ApiException("Invalid");
+        }
+        appointment.setServ(serv);
+        serv.getAppointments().add(appointment);
+
+        appointmentRepository.save(appointment);
+        servRepository.save(serv);
+
+    }
 
 }
