@@ -21,29 +21,25 @@ public class Customer {
     @Size(min = 2)
     @Column(columnDefinition = "varchar(20)")
     private String name;
-
-    @NotEmpty(message = "Gender is required")
-    @Pattern(regexp = "\\b(?:Female|Male)\\b",message = "Gender Not Valid")
-    @Column(columnDefinition = "varchar(10) not null check(gender='Female' or gender='Male')")
-    private String gender;
+    
 
     @NotNull(message = "Age is required")
     @Positive
     @Column(columnDefinition ="int not null")
     private Integer age;
 
-    @NotNull(message = "Phone Number is required")
-    @Positive
-    @Column(columnDefinition ="int not null")
-    private Integer phoneNumber;
-
-    @NotEmpty(message = "Email is required")
-    @Email(message = "Invalid Email",regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
+    @NotEmpty(message = "Phone Number is required")
+    @Column(columnDefinition ="varchar(10)")
+    private String phoneNumber;
 
     @NotEmpty(message = "Email is required")
     @Email(message = "Invalid Email",regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
     @Column(columnDefinition = "varchar(40) unique")
     private String email;
+    
+    private boolean loyalty = false;
+
+    private Integer count=0;
 
     @OneToOne(cascade = CascadeType.REMOVE,mappedBy = "customer")
     @PrimaryKeyJoinColumn
