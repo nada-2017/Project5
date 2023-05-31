@@ -33,10 +33,9 @@ public class Appointment {
     private Customer customer;
 
 
-    @ManyToOne
-    @JoinColumn(name = "staff_id" , referencedColumnName = "id")
+    @ManyToMany
     @JsonIgnore
-    private Staff staff;
+    private Set<Staff> staffSet;
 
     @ManyToMany
     @JsonIgnore
