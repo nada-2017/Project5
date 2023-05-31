@@ -55,6 +55,7 @@ public class Staff {
     private Set<Appointment> appointmentSet;
 
 
-    @ManyToMany(mappedBy = "staff")
+    @ManyToMany
+    @JsonIgnore
     private Set<Serv> servSet;
 }
