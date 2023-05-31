@@ -36,6 +36,7 @@ public class ServService {
 
         oldServ.setName(serv.getName());
         oldServ.setCategory(serv.getCategory());
+        oldServ.setPrice(serv.getPrice());
 
         servRepository.save(oldServ);
     }
