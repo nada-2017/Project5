@@ -76,8 +76,8 @@ public class StaffService {
         Customer customer = customerRepository.getCustomerById(customer_id);
         Staff s = staffRepository.findStaffById(staff_id);
 
-        if (s != customer.getAppointment().getStaff()){
-            throw  new ApiException("Invalid");
+        if (customer.getAppointment() == null || s != customer.getAppointment().getStaff()){
+            throw  new ApiException("Invalid, you can't rating ");
         }
         s.setRating(rating);
         staffRepository.save(s);

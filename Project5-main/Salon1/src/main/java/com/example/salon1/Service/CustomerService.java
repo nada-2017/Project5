@@ -27,7 +27,7 @@ public class CustomerService {
         if (c == null)
             throw new ApiException("Not found");
         c.setName(customer.getName());
-        c.setAge(customer.getAge());
+//        c.setAge(customer.getAge());
         c.setEmail(customer.getEmail());
         c.setPhoneNumber(customer.getPhoneNumber());
         customerRepository.save(c);

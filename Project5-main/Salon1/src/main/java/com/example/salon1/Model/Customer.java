@@ -22,10 +22,10 @@ public class Customer {
     @Column(columnDefinition = "varchar(20)")
     private String name;
 
-    @NotNull(message = "Age is required")
-    @Positive
-    @Column(columnDefinition ="int not null")
-    private Integer age;
+//    @NotNull(message = "Age is required")
+//    @Positive
+//    @Column(columnDefinition ="int not null")
+//    private Integer age;
 
     @NotEmpty(message = "Phone Number is required")
     @Column(columnDefinition ="varchar(10)")

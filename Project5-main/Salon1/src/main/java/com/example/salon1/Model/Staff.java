@@ -26,14 +26,13 @@ public class Staff {
     @NotNull(message = "age can't be empty")
     private Integer age;
 
-    @NotNull(message = "rating is required")
-    @Positive
+
     @Min(value = 1)
     @Max(value = 5)
     private Double rating;
 
     @NotEmpty(message = "role can't be empty")
-    @Column(columnDefinition = "varchar(20) not null check(role ='supervisor' or role='user')")
+    @Column(columnDefinition = "varchar(20) not null check(role ='supervisor' or role='beautician')")
     private String role;
 
     @NotEmpty(message = "email can't be empty")
@@ -42,6 +41,7 @@ public class Staff {
 
     @NotNull(message = "salary can't be empty")
     private Integer salary;
+
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "staff")
