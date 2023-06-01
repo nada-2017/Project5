@@ -28,7 +28,6 @@ public class CustomerService {
             throw new ApiException("Not found");
         c.setName(customer.getName());
         c.setAge(customer.getAge());
-        c.setGender(customer.getGender());
         c.setEmail(customer.getEmail());
         c.setPhoneNumber(customer.getPhoneNumber());
         customerRepository.save(c);
@@ -46,5 +45,18 @@ public class CustomerService {
         if (customer == null)
             throw new ApiException("Not found");
         return customer.getAppointment();
+    }
+    
+    public void loyalty(Integer id){
+        Customer customer = customerRepository.getCustomerById(id);
+        if (customer == null)
+            throw new ApiException("Not found");
+        Integer price = customer.getAppointment().getServ().getPrice();
+        if (customer.getCount() > 3) {
+            customer.setLoyalty(true);
+            customer.getAppointment().getServ().setPrice(price - (price * 20 / 100));
+        }
+        else
+            throw new ApiException("Not enough visits");
     }
 }
