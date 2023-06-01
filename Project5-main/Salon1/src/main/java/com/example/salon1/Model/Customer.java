@@ -38,7 +38,7 @@ public class Customer {
 
     private boolean loyalty = false;
 
-    private Integer count=0;
+    private Integer numberOfVisit=0;
 
     @OneToOne(cascade = CascadeType.REMOVE,mappedBy = "customer")
     @PrimaryKeyJoinColumn
