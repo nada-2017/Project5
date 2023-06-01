@@ -38,7 +38,7 @@ public class AppointmentService {
             appointmentRepository.delete(customer.getAppointment());
             customer.setAppointment(null);
         }
-        customer.setCount(customer.getCount()+1);
+        customer.setNumberOfVisit(customer.getNumberOfVisit()+1);
         Appointment appointment = new Appointment(null, dto.getDay(), dto.getMonth(),dto.getYear(),dto.getHour(), serv.getPrice(), customer,staff,serv);
         appointmentRepository.save(appointment);
     }
