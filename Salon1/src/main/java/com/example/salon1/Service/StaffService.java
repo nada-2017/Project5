@@ -12,8 +12,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StaffService {
     private final StaffRepository staffRepository;
-
-
+    private final AppointmentRepository appointmentRepository;
+    private final CustomerRepository customerRepository;
+    
     public List<Staff> getAllStaffs(){
 
         return staffRepository.findAll();
@@ -31,8 +32,10 @@ public class StaffService {
         }
         staff1.setName(staff.getName());
         staff1.setSalary(staff.getSalary());
+        staff1.setRating(staff.getRating());
         staff1.setAge(staff.getAge());
-
+        staff1.setRole(staff.getRole());
+        staff1.setEmail(staff.getEmail());
         staffRepository.save(staff1);
     }
 
@@ -45,11 +48,11 @@ public class StaffService {
         staffRepository.delete(staff);
     }
     
-        public void assignStaffToAppointment(Integer staff_id, Integer appointment_id){
+    public void assignStaffToAppointment(Integer staff_id, Integer appointment_id){
         Staff staff = staffRepository.findStaffById(staff_id);
         Appointment appointment = appointmentRepository.findAppointmentById(appointment_id);
         if (staff==null || appointment==null){
-            throw new ApiException("id worng , can't assigned");
+            throw new ApiException("id wrong , can't assigned");
         }
         staff.getAppointmentSet().add(appointment);
         appointment.setStaff(staff);
@@ -65,20 +68,24 @@ public class StaffService {
         }
         return staff.getAppointmentSet();
     }
-    public void getStaffByRating(Integer customer_id,Integer staff_id ,Double rating ){
-
+    public void rateStaff(Integer customer_id,Integer staff_id ,Double rating ){
         Customer customer = customerRepository.getCustomerById(customer_id);
         Staff s = staffRepository.findStaffById(staff_id);
 
-        if (s!=customer.getAppointment().getStaff()){
-            throw  new ApiException("staff ");
+        if (s != customer.getAppointment().getStaff()){
+            throw  new ApiException("Invalid");
         }
         s.setRating(rating);
         staffRepository.save(s);
 
     }
-    
-    
-    
+
+    public Integer getSalaryStaff(Integer id){
+        Staff staff = staffRepository.findStaffById(id);
+        if (staff==null){
+            throw new ApiException("wrong id");
+        }
+        return staff.getSalary();
+    }
     
 }
