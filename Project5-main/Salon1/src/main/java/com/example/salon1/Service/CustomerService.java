@@ -52,7 +52,7 @@ public class CustomerService {
         if (customer == null)
             throw new ApiException("Not found");
         Integer price = customer.getAppointment().getServPrice();
-        if (customer.getCount() > 3) {
+        if (customer.getNumberOfVisit() > 3) {
             customer.setLoyalty(true);
             customer.getAppointment().setServPrice(price - (price * 20 / 100));
             customerRepository.save(customer);
