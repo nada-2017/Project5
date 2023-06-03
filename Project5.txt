@@ -1,0 +1,4 @@
+Team members:
+1- Nada (Customer and appointment models + All crud+ Loyalty endpoint)
+2- Amwaj (Service model + All crud + discount endpoint)
+3- Ghader (Staff model + All crud + rate endpoint)
